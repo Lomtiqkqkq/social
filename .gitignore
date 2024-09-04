@@ -9,3 +9,5 @@ logs
 
 # IDEs and editors
 /.idea
+# ENV
+.development.env
