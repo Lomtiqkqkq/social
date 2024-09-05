@@ -9,7 +9,7 @@ import {
     Unique,
 } from '@sequelize/core/decorators-legacy';
 import { PartialBy } from '@sequelize/utils';
-import { CreationOptional, DataTypes, Model } from '@sequelize/core';
+import {DataTypes, Model } from '@sequelize/core';
 
 
 export interface UserAttributes {
