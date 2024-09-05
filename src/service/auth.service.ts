@@ -15,19 +15,21 @@ export class AuthService {
     }
     const hashedPassword = bcrypt.hashSync(createAttrs.password, 10);
     const newUser = await this.usersService.create(...createAttrs, { password: hashedPassword })
-    const tokens = await this.generateTokens({username: newUser.username, email: newUser.email})
+    const AccessToken = await this.generateAccessToken({username: newUser.username, email: newUser.email})
 
   }
-  async generateTokens(data: UserCreate,) {
+  async generateAccessToken(data: any,) {
     return jwt.sign({ data: data }, String(process.env.PRIVATE_KEY), { expiresIn: '1h' })
   }
   async logIn(email: string, password: string) {
     const candidate = await this.usersService.getUserByEmail(email)
-    const validatePass = bcrypt.compare(password, candidate.password)
-    if(!candidate || !validatePass) {
+    if(!candidate) {
       throw new Error('candidate not found!')
     }
-    const tokens = await this.generateTokens({username: candidate.username, email: email})
-    await this.usersService.patchUser()
+    const validatePass = await bcrypt.compare(password, candidate.password)
+    if(!validatePass) {
+      throw Error('password not correct')
+    }
+    const tokens = await this.generateAccessToken({username: candidate.username, email: email})
   }
 }

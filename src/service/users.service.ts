@@ -20,7 +20,8 @@ export class UsersService {
   async getUserByEmail(email: string) {
     return this.userRepository.findByPk(email)
   }
-  async patchUser(email: string, value: string) {
-    const user = await this.userRepository.u(value, {where: {email}})
+  async patchUser() {
+
   }
+
 }
