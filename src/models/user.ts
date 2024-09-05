@@ -1,62 +1,98 @@
-import InitPostgres from "../db/init.postgres";
-import {DataTypes} from "sequelize";
+import {
+    CreationOptional,
+    DataTypes, Model,
+} from "@sequelize/core";
+import {Attribute, AutoIncrement, Default, NotNull, PrimaryKey, Table, Unique} from "@sequelize/core/decorators-legacy";
+import {PartialBy} from "@sequelize/utils";
 
-const User = InitPostgres.define('user', {
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-        allowNull: false
-    },
-    username: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    password: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
-        validate: {
-            isEmail: true
-        }
-    },
-    phone: {
-        type: DataTypes.NUMBER,
-        allowNull: true,
-        unique: true
-    },
-    confirmationCodeEmail: {
-        type: DataTypes.INTEGER,
-    },
-    confirmationCodePhone: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
-    statusSocial: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        defaultValue: "POVERTY"
-    },
-    role: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        defaultValue: "USER"
-    },
-    isActiveEmail: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        defaultValue: false
-    },
-    isActivePhone: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false
-    },
-})
 
-export default {
-    User
+export interface UserAttributes {
+    id: string,
+    username: string,
+    email: string,
+    password: string,
+    phone: string,
+    refreshToken: string,
+    confirmationCodeEmail: string,
+    confirmationCodePhone: string,
+    statusSocial: string,
+    role: string,
+    isActiveEmail: boolean,
+    isActivePhone: boolean
 }
+
+export type UserCreationAttributes = PartialBy<
+    UserAttributes,
+    'id'
+    | 'username'
+    | 'email'
+    | 'password'
+    | 'phone'
+    | 'refreshToken'
+    | 'confirmationCodeEmail'
+    | 'confirmationCodePhone'
+    | 'statusSocial'
+    | 'role'
+    | 'isActiveEmail'
+    | 'isActivePhone'
+    >;
+
+@Table({ tableName: 'user', underscored: true })
+class User extends Model<UserAttributes, UserCreationAttributes>{
+    @Attribute(DataTypes.INTEGER)
+    @PrimaryKey
+    @AutoIncrement
+    declare id: CreationOptional<number>;
+
+    @Attribute(DataTypes.STRING)
+    @NotNull
+    declare username: string;
+
+    @Attribute(DataTypes.STRING)
+    @NotNull
+    declare password: string;
+
+    @Attribute(DataTypes.STRING)
+    @NotNull
+    declare refreshToken: string;
+
+    @Attribute(DataTypes.STRING)
+    @NotNull
+    @Unique
+    declare email: string
+
+    @Attribute(DataTypes.INTEGER)
+    @NotNull
+    @Unique
+    declare phone: number
+
+    @Attribute(DataTypes.STRING)
+    declare confirmationCodeEmail: string
+
+    @Attribute(DataTypes.STRING)
+    declare confirmationCodePhone: string
+
+    @Attribute(DataTypes.STRING)
+    @Default('POVERTY')
+    @NotNull
+    declare statusSocial: string
+
+    @Attribute(DataTypes.STRING)
+    @NotNull
+    @Default('USER')
+    declare role: string
+
+    @Attribute(DataTypes.BOOLEAN)
+    @Default(false)
+    declare isActiveEmail: boolean
+
+    @Attribute(DataTypes.STRING)
+    @Default(false)
+    declare isActivePhone: boolean
+
+}
+
+
+// export  {
+//     User
+// }

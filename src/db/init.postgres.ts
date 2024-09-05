@@ -1,4 +1,4 @@
-import {Sequelize} from 'sequelize';
+import {Sequelize} from '@sequelize/core';
 import dotenv from 'dotenv';
 dotenv.config()
 
@@ -8,6 +8,7 @@ const InitPostgres = new Sequelize({
     database: process.env.PG_DATABASE,
     host: process.env.PG_HOST,
     port: Number(process.env.PG_PORT),
-    dialect: "postgres"
+    dialect: "postgres",
 })
+
 export default InitPostgres

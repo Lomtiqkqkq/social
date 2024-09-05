@@ -12,6 +12,7 @@
     "emitDecoratorMetadata": true,
     "isolatedModules": true,
     "noImplicitAny": true,
+    "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "baseUrl": "./src",
