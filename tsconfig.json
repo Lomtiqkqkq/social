@@ -10,6 +10,7 @@
     "allowJs": true,
     "skipLibCheck": true,
     "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "isolatedModules": true,
     "noImplicitAny": true,
     "allowSyntheticDefaultImports": true,
