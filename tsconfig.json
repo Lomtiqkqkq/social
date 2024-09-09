@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "module": "NodeNext",
-    "target": "ES6",
+    "target": "ESNext",
     "rootDir": "./src",
     "outDir": "./dist",
     "moduleResolution": "NodeNext",
@@ -16,12 +16,16 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "baseUrl": "./src",
+    "downlevelIteration": true,
     "paths": {
       "*": [
         "node_modules/*",
         "src/*"
       ]
-    }
+    },
+    "lib": [
+      "dom", "dom.iterable"
+    ]
   },
   "include": [
     "src/**/*.ts",

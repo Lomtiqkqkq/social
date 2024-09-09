@@ -1,16 +1,12 @@
-
-
 export interface UserCreate {
-    readonly username: string;
-    readonly password: string;
-    readonly email: string;
-    readonly phone?: string
+  readonly username: string;
+  readonly password: string;
+  readonly email: string;
+  readonly phone?: string;
 }
 
 export interface UserPatch {
-    readonly refreshToken: string;
+  readonly refreshToken: string;
 }
 
-export interface UserPut {
-
-}
+export interface UserPut {}
